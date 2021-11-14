@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels: {{- include "satisfactory.labels" . | nindent 4 }}
+  name: {{ template "satisfactory.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "satisfactory.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "satisfactory.fullname" .}}
+  template:
+    metadata:
+      labels: {{- include "satisfactory.labels" . | nindent 8 }}
+    spec:
+      {{- if .Values.rbac.enabled }}
+      serviceAccountName: {{ include "satisfactory.serviceAccountName" . | quote }}
+      {{- end }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - satisfactory-server
+              topologyKey: "kubernetes.io/hostname"
+      initContainers:
+        - name: copy-ro-scripts
+          image: busybox
+          command: [ 'sh', '-c', 'cp /configs/*.ini /etc/config-copies/' ]
+          volumeMounts:
+            - name: config-files
+              mountPath: /configs
+            - name: config-copies
+              mountPath: /etc/config-copies
+      containers:
+        - image: "{{ .Values.satisfactory.image }}"
+          name: {{ template "satisfactory.fullname" . }}
+          imagePullPolicy: Always
+          env:
+            - name: MAXPLAYERS
+              value: {{ .Values.satisfactory.maxPlayers | quote }}
+            - name: STEAMBETA
+              value: {{ .Values.satisfactory.beta | quote }}
+            - name: SKIPUPDATE
+              value: {{ .Values.satisfactory.skipUpdate | quote }}
+            - name: SERVERGAMEPORT
+              value: {{ .Values.satisfactory.gamePort | quote }}
+            - name: SERVERBEACONPORT
+              value: {{ .Values.satisfactory.beaconPort | quote }}
+            - name: SERVERQUERYPORT
+              value: {{ .Values.satisfactory.queryPort | quote }}
+          ports:
+            - name: "game-port"
+              containerPort: {{ .Values.satisfactory.gamePort }}
+              protocol: UDP
+            - name: "beacon-port"
+              containerPort: {{ .Values.satisfactory.beaconPort }}
+              protocol: UDP
+            - name: "query-port"
+              containerPort: {{ .Values.satisfactory.queryPort }}
+              protocol: UDP
+          {{- if .Values.persistence.enabled }}
+          volumeMounts:
+            - name: config-copies
+              mountPath: /home/steam/Engine.ini
+              subPath: Engine.ini
+            - name: config-copies
+              mountPath: /home/steam/Game.ini
+              subPath: Game.ini
+            - name: config-copies
+              mountPath: /home/steam/Scalability.ini
+              subPath: Scalability.ini
+            - name: satisfactory-storage
+              mountPath: /config
+      {{- end }}
+      {{- if .Values.persistence.enabled }}
+
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: config-copies
+          emptyDir: {}
+        - name: config-files
+          configMap:
+            name: {{ include "satisfactory.fullname" . | quote }}
+        - name: satisfactory-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "satisfactory.fullname" .) | quote }}
+  {{- end }}

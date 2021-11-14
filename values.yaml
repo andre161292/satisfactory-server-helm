@@ -1,0 +1,25 @@
+fullnameOverride: ""
+nameOverride: ""
+satisfactory:
+  image: "ghcr.io/andre161292/satisfactory-server:main"
+  maxPlayers: 5
+  skipUpdate: false
+  beta: false
+  beaconPort: 15000
+  gamePort: 7777
+  queryPort: 15777
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: ""
+  claimName: satisfactory-storage
+  existingClaim: ""
+rbac:
+  create: true
+  enabled: true
+  roleName: ""
+  roleBindingName: ""
+serviceAccount:
+  create: true
+  name: ""
+  automountServiceAccountToken: false
