@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: run kics Scan
+        uses: checkmarx/kics-action@v1.3
+        with:
+          fail_on: high,medium
+          path: 'charts'
+          output_path: 'results.json'
+      - name: display kics results
+        run: |
+          cat results.json
