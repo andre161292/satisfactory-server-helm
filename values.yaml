@@ -1,7 +1,7 @@
 fullnameOverride: ""
 nameOverride: ""
 satisfactory:
-  image: "ghcr.io/andre161292/satisfactory-server:main"
+  image: "ghcr.io/andre161292/satisfactory-server:v0.1.0"
   maxPlayers: 5
   skipUpdate: false
   beta: false
