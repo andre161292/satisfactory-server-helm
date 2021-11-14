@@ -3,6 +3,7 @@ kind: StatefulSet
 metadata:
   labels: {{- include "satisfactory.labels" . | nindent 4 }}
   name: {{ template "satisfactory.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: 1
   selector:
@@ -74,6 +75,8 @@ spec:
               subPath: Scalability.ini
             - name: satisfactory-storage
               mountPath: /config
+          securityContext:
+            allowPrivilegeEscalation: false
       {{- end }}
       {{- if .Values.persistence.enabled }}
 

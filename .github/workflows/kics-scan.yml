@@ -10,9 +10,6 @@ jobs:
       - name: run kics Scan
         uses: checkmarx/kics-action@v1.3
         with:
-          fail_on: high,medium
+          fail_on: high
           path: 'charts'
           output_path: 'results.json'
-      - name: display kics results
-        run: |
-          cat results.json

@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ template "satisfactory.fullname" . }}
   labels: {{- include "satisfactory.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace | quote }}
 data:
   Engine.ini: |-
     [/Script/EngineSettings.GameMapsSettings]

@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: {{ template "satisfactory.fullname" . }}
   labels: {{- include "satisfactory.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace | quote }}
 spec:
   selector: {{- include "satisfactory.selectorLabels" . | nindent 4 }}
   type: LoadBalancer

@@ -1,0 +1,2 @@
+#!/bin/sh
+docker run -i -u $UID:$GID -v $PWD:/path checkmarx/kics:ubi7 scan -p /path -o /path -v --fail-on high --no-progress
