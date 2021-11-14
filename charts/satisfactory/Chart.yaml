@@ -2,5 +2,5 @@ apiVersion: v2
 name: satisfactory
 description: Helm chart to deploy a satisfactory server into your kubernetes cluster.
 type: application
-version: "0.0.4"
+version: "0.0.5"
 appVersion: "171579"

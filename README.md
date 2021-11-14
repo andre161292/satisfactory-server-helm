@@ -23,4 +23,4 @@ You need to have a LoadBalancer installed and all three ports (see [Config](#Con
 
 Have a look at [values.yaml](charts/satisfactory/values.yaml) for available options.
 
-See https://github.com/andre161292/satisfactory-server for more information about the values used.
+See https://github.com/andre161292/satisfactory-server for more information about the values used. 
