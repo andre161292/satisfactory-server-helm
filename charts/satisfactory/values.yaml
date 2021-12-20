@@ -1,13 +1,14 @@
 fullnameOverride: ""
 nameOverride: ""
 satisfactory:
-  image: "ghcr.io/andre161292/satisfactory-server:v0.1.0"
+  image: "ghcr.io/andre161292/satisfactory-server:v0.2.0"
   maxPlayers: 5
   skipUpdate: false
   beta: false
   beaconPort: 15000
   gamePort: 7777
   queryPort: 15777
+  reportCrashes: false
 persistence:
   enabled: true
   size: 10Gi
