@@ -8,6 +8,7 @@ satisfactory:
   beaconPort: 15000
   gamePort: 7777
   queryPort: 15777
+  reportCrashes: false
 persistence:
   enabled: true
   size: 10Gi

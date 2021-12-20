@@ -73,6 +73,12 @@ spec:
             - name: config-copies
               mountPath: /home/steam/Scalability.ini
               subPath: Scalability.ini
+            - name: config-copies
+              mountPath: /home/steam/GameUserSettings.ini
+              subPath: GameUserSettings.ini
+            - name: config-copies
+              mountPath: /home/steam/ServerSettings.ini
+              subPath: ServerSettings.ini
             - name: satisfactory-storage
               mountPath: /config
           securityContext:
