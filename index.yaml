@@ -3,6 +3,16 @@ entries:
   satisfactory:
   - apiVersion: v2
     appVersion: "171579"
+    created: "2022-01-16T15:45:54.674787699Z"
+    description: Helm chart to deploy a satisfactory server into your kubernetes cluster.
+    digest: eb999bbe10e62b5869892928de6c7540dffd6e8d2fe843ac5f2ca5f5ffe8a136
+    name: satisfactory
+    type: application
+    urls:
+    - https://github.com/andre161292/satisfactory-server-helm/releases/download/satisfactory-0.0.7/satisfactory-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
+    appVersion: "171579"
     created: "2021-12-20T21:58:12.389266776Z"
     description: Helm chart to deploy a satisfactory server into your kubernetes cluster.
     digest: 237ffe205519110f4302e7d7006088f56564d8935a61675390da5e61070120b6
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/andre161292/satisfactory-server-helm/releases/download/satisfactory-0.0.4/satisfactory-0.0.4.tgz
     version: 0.0.4
-generated: "2021-12-20T21:58:12.389282576Z"
+generated: "2022-01-16T15:45:54.674800299Z"
